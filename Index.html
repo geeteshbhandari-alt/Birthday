@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Riyaa 💙</title>
+
+<style>
+:root{
+    --blue:#48dbfb;
+    --dark:#0a0f1f;
+    --glass:rgba(255,255,255,0.08);
+}
+
+body{
+    margin:0;
+    font-family: 'Segoe UI', sans-serif;
+    background: radial-gradient(circle at top,#111c3d,#050814);
+    color:white;
+    overflow-x:hidden;
+}
+
+section{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    text-align:center;
+    padding:20px;
+    transition:opacity 0.6s ease, transform 0.6s ease;
+}
+
+.hidden{
+    opacity:0;
+    pointer-events:none;
+    position:absolute;
+    transform:translateY(20px);
+}
+
+.card{
+    background:var(--glass);
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,0.15);
+    padding:40px;
+    border-radius:25px;
+    max-width:650px;
+    box-shadow:0 20px 50px rgba(0,0,0,0.6);
+    transition:0.4s ease;
+}
+.card:hover{
+    transform:scale(1.03);
+}
+
+h1{
+    font-size:3rem;
+    color:var(--blue);
+    text-shadow:0 0 25px var(--blue);
+}
+
+button{
+    background:var(--blue);
+    border:none;
+    padding:14px 28px;
+    border-radius:40px;
+    margin-top:20px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+button:hover{
+    background:#74e8ff;
+    transform:scale(1.05);
+}
+
+/* Letter */
+.letter{
+    text-align:left;
+    line-height:1.7;
+    border-left:4px solid var(--blue);
+    padding-left:15px;
+    margin-top:20px;
+    min-height:150px;
+}
+
+/* Cake */
+.cake-container{
+    font-size:7rem;
+    position:relative;
+    cursor:pointer;
+}
+.flame{
+    position:absolute;
+    top:-20px;
+    left:50%;
+    transform:translateX(-50%);
+    animation:flicker 0.15s infinite alternate;
+}
+@keyframes flicker{
+    from{opacity:0.7; transform:translateX(-50%) scale(1);}
+    to{opacity:1; transform:translateX(-50%) scale(1.2);}
+}
+
+/* Game */
+#game-area{
+    width:300px;
+    height:300px;
+    border:2px dashed var(--blue);
+    margin:20px auto;
+    position:relative;
+    overflow:hidden;
+    border-radius:20px;
+}
+.target{
+    position:absolute;
+    font-size:2rem;
+    cursor:pointer;
+    transition:0.2s;
+}
+.target:hover{
+    transform:scale(1.3);
+}
+
+/* Floating background */
+.bg{
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    z-index:-1;
+    overflow:hidden;
+}
+.bg span{
+    position:absolute;
+    opacity:0.2;
+    animation:float 10s linear infinite;
+}
+@keyframes float{
+    from{transform:translateY(100vh);}
+    to{transform:translateY(-10vh);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg" id="bg"></div>
+
+<!-- START -->
+<section id="start">
+<div class="card">
+<p>Hey Riyaa ✨</p>
+<h1>Open Your Magic Card 💌</h1>
+<button onclick="showSection('letter')">Click to Open 🎁</button>
+</div>
+</section>
+
+<!-- LETTER -->
+<section id="letter" class="hidden">
+<div class="card">
+<h1>To My Amazing Sister 💙</h1>
+<div class="letter" id="typed"></div>
+<button onclick="showSection('cake')">Next 🎂</button>
+</div>
+</section>
+
+<!-- CAKE -->
+<section id="cake" class="hidden">
+<div class="card">
+<h1>Blow The Candle 🕯️</h1>
+<div class="cake-container" onclick="blowCandle()">
+<div class="flame" id="flame">🔥</div>
+🎂
+</div>
+<p id="cakeMsg">Tap the cake to make a wish!</p>
+<button id="gameBtn" class="hidden" onclick="showSection('game')">Play Game 🎮</button>
+</div>
+</section>
+
+<!-- GAME -->
+<section id="game" class="hidden">
+<div class="card">
+<h1>Catch 10 Blue Hearts 💙</h1>
+<p>Score: <span id="score">0</span></p>
+<div id="game-area"></div>
+</div>
+</section>
+
+<!-- FINAL -->
+<section id="final" class="hidden">
+<div class="card">
+<h1>HAPPY BIRTHDAY RIYAA 👑</h1>
+<p>You are loved more than the stars ✨</p>
+<p>💙 🎈 💎 🦋 🌌 🧁</p>
+<button onclick="location.reload()">Replay 🔄</button>
+</div>
+</section>
+
+<script>
+
+/* SECTION SWITCH */
+function showSection(id){
+document.querySelectorAll("section").forEach(sec=>sec.classList.add("hidden"));
+document.getElementById(id).classList.remove("hidden");
+
+if(id==="letter"){ startTyping(); }
+if(id==="game"){ startGame(); }
+}
+
+/* TYPING EFFECT */
+const message = `Dearest Riyaa,
+
+Today isn’t just another day.
